@@ -3,4 +3,8 @@
     <string name="login">Login</string>
     <string name="userName">UserName</string>
     <string name="password">password</string>
+    <string name="description">description</string>
+    <string name="takePhoto">Take Picture</string>
+    <string name="samplePhoto">Photo Sample</string>
+    <string name="submit">Submit</string>
 </resources>
