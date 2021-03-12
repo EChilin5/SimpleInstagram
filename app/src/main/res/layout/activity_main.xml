@@ -6,24 +6,29 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <ImageButton
+        android:id="@+id/imbtnPicture"
+        android:layout_width="44dp"
+        android:layout_height="49dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="9dp"
+        android:contentDescription="@string/takePhoto"
+        app:srcCompat="@mipmap/camera_icon" />
+
     <LinearLayout
         android:id="@+id/MainContent"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/tvUserName"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="5dp"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="16dp"
         android:orientation="vertical"
         tools:context=".MainActivity">
 
-
-        <Button
-            android:id="@+id/btnCaptureImage"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/takePhoto" />
 
         <ImageView
             android:id="@+id/ivPostImage"
@@ -40,27 +45,9 @@
             android:layout_weight="1"
             android:ems="10"
             android:inputType="textPersonName"
-            android:text="@string/description" />
-
-        <Button
-            android:id="@+id/btnSubmit"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/submit" />
+            tools:text="@string/description" />
 
     </LinearLayout>
-
-    <ImageButton
-        android:id="@+id/imbtnPicture"
-        android:layout_width="44dp"
-        android:layout_height="49dp"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginStart="23dp"
-        android:layout_marginBottom="13dp"
-        android:contentDescription="@string/takePhoto"
-        app:srcCompat="@mipmap/camera_icon" />
 
     <ImageButton
         android:id="@+id/imBtnAccount"
@@ -78,11 +65,36 @@
         android:layout_width="49dp"
         android:layout_height="47dp"
         android:layout_alignParentBottom="true"
-        android:layout_marginStart="114dp"
         android:layout_marginEnd="114dp"
         android:layout_marginBottom="12dp"
         android:layout_toStartOf="@+id/imBtnAccount"
-        android:layout_toEndOf="@+id/imbtnPicture"
+        android:contentDescription="@string/submit"
         app:srcCompat="@mipmap/post_icon" />
+
+    <ImageView
+        android:id="@+id/ivLogo"
+        android:layout_width="205dp"
+        android:layout_height="55dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="26dp"
+        android:layout_marginTop="2dp"
+        android:layout_marginEnd="126dp"
+        android:layout_toEndOf="@+id/imbtnPicture"
+        android:contentDescription="@string/instagram_logo"
+        app:srcCompat="@drawable/nav_logo_whiteout" />
+
+    <TextView
+        android:id="@+id/tvUserName"
+        android:layout_width="114dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/imbtnPicture"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="14dp"
+        android:layout_marginEnd="281dp"
+        android:textSize="18sp"
+        tools:text="@string/userName" />
 
 </RelativeLayout>

@@ -18,6 +18,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -41,18 +42,26 @@ public class MainActivity extends AppCompatActivity {
     private ImageView ivPosterImage;
     private File photoFile;
     public String photoFileName = "photo.jpg";
+    private ImageButton imbtnPicture;
+    private ImageButton imBtnAccount;
+    private ImageButton imBtnPost;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        getSupportActionBar().hide();
+
 
         etDescription = findViewById(R.id.etDescription);
-        btnCaptureImage = findViewById(R.id.btnCaptureImage);
-        btnSubmit = findViewById(R.id.btnSubmit);
-        ivPosterImage = findViewById(R.id.ivPostImage);
 
-        btnCaptureImage.setOnClickListener(new View.OnClickListener() {
+        ivPosterImage = findViewById(R.id.ivPostImage);
+        imbtnPicture = findViewById(R.id.imbtnPicture);
+        imBtnAccount = findViewById(R.id.imBtnAccount);
+        imBtnPost = findViewById(R.id.imBtnPost);
+
+
+        imbtnPicture.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Log.i(TAG, "capture image is clicked");
@@ -61,7 +70,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
     //    queryPost();
-        btnSubmit.setOnClickListener(new View.OnClickListener() {
+        imBtnPost.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String description = etDescription.getText().toString();
@@ -75,8 +84,22 @@ public class MainActivity extends AppCompatActivity {
                 }
                 ParseUser currentUser = ParseUser.getCurrentUser();
                 savePost(description, currentUser, photoFile);
+                Toast.makeText(MainActivity.this, "Post has been created", Toast.LENGTH_SHORT).show();
+
             }
         });
+
+        imBtnAccount.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ParseUser.logOut();
+                ParseUser currentUser = ParseUser.getCurrentUser(); // this will now be null
+                Intent i = new Intent(MainActivity.this, activity_login.class);
+                startActivity(i);
+                finish();
+            }
+        });
+
 
     }
 
