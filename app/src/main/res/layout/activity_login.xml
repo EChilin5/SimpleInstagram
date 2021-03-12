@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     tools:context=".activity_login"
     android:layout_margin="16dp">
+
 
     <EditText
         android:id="@+id/etUserName"
@@ -23,8 +23,9 @@
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:ems="10"
-        tools:text="@string/password"
-        android:inputType="textPassword" />
+        android:hint="@string/password"
+        android:inputType="textPassword"
+        tools:text="@string/password" />
 
     <Button
         android:id="@+id/btnLogin"
@@ -32,6 +33,14 @@
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:ems="10"
+        android:background="@color/blue"
         android:text="@string/login"/>
+    <Button
+        android:id="@+id/btnSignUp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:ems="10"
+        android:text="@string/sign_up"/>
 
 </LinearLayout>

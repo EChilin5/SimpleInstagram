@@ -7,4 +7,7 @@
     <string name="takePhoto">Take Picture</string>
     <string name="samplePhoto">Photo Sample</string>
     <string name="submit">Submit</string>
+    <string name="logout">Logout</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="instagram">Instagram</string>
 </resources>
