@@ -20,6 +20,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.parse.FindCallback;
@@ -37,14 +38,15 @@ public class MainActivity extends AppCompatActivity {
     public static final String TAG = "MainActivity";
     public static final int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 42;
     private EditText etDescription;
-    private Button btnCaptureImage;
-    private Button btnSubmit;
+
     private ImageView ivPosterImage;
     private File photoFile;
     public String photoFileName = "photo.jpg";
-    private ImageButton imbtnPicture;
-    private ImageButton imBtnAccount;
-    private ImageButton imBtnPost;
+
+    private ImageView  ivAccount;
+    private ImageView ivPost;
+    private ImageView ivCamera;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,23 +56,26 @@ public class MainActivity extends AppCompatActivity {
 
 
         etDescription = findViewById(R.id.etDescription);
-
+        //tvUserName = findViewById(R.id.tvUserName);
         ivPosterImage = findViewById(R.id.ivPostImage);
-        imbtnPicture = findViewById(R.id.imbtnPicture);
-        imBtnAccount = findViewById(R.id.imBtnAccount);
-        imBtnPost = findViewById(R.id.imBtnPost);
+        ivCamera = findViewById(R.id.ivCamera);
+        ivAccount = findViewById(R.id.ivAccount);
+        ivPost = findViewById(R.id.ivPost);
+        //tvUserName.setText((CharSequence) currentUser);
 
+        etDescription.setVisibility(View.GONE);
 
-        imbtnPicture.setOnClickListener(new View.OnClickListener() {
+        ivCamera.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Log.i(TAG, "capture image is clicked");
                 launchCamera();
+                etDescription.setVisibility(View.VISIBLE);
             }
         });
 
     //    queryPost();
-        imBtnPost.setOnClickListener(new View.OnClickListener() {
+        ivPost.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String description = etDescription.getText().toString();
@@ -89,7 +94,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        imBtnAccount.setOnClickListener(new View.OnClickListener() {
+        ivAccount.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 ParseUser.logOut();
@@ -192,6 +197,7 @@ public class MainActivity extends AppCompatActivity {
                 Log.i(TAG, "Post save was successful ");
                 etDescription.setText("");
                 ivPosterImage.setImageResource(0);
+                etDescription.setVisibility(View.GONE);
             }
         });
     }
