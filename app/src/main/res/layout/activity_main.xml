@@ -83,11 +83,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_marginStart="109dp"
-        android:layout_marginEnd="109dp"
+        android:layout_centerHorizontal="true"
         android:layout_marginBottom="1dp"
-        android:layout_toStartOf="@+id/ivAccount"
-        android:layout_toEndOf="@+id/ivHome"
         android:contentDescription="@string/submit"
         app:srcCompat="@mipmap/post_icon" />
 
