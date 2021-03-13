@@ -1,4 +1,4 @@
-# Project 3 - *Instagram Tweet*
+# Project 3 - *Instagram Clone*
 
 **Simple Instagram** is a photo sharing app similar to Instagram but using Parse as its backend.
 
