@@ -132,7 +132,6 @@ public class PostsFragment extends Fragment {
             for(Post post: posts){
                 Log.i(TAG, "Post: " + post.getDescription() + " USERNAME: " + post.getUser().getUsername());
             }
-            Toast.makeText(getContext(), ParseUser.getCurrentUser().getUsername(), Toast.LENGTH_SHORT ).show();
             adapter.clear();
             adapter.addAll(posts);
             swipeContainter.setRefreshing(false);

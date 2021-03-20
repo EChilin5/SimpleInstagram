@@ -25,7 +25,6 @@ public class ProfileFragment extends PostsFragment {
         query.addDescendingOrder(Post.KEY_CREATED_KEY);
         query.findInBackground((posts, e) -> {
 
-            Toast.makeText(getContext(), ParseUser.getCurrentUser().getUsername(), Toast.LENGTH_SHORT ).show();
             if(e != null){
                 Log.e(TAG, "Issue with getting posts", e);
                 return;

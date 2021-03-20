@@ -28,6 +28,7 @@ public class MainActivity extends AppCompatActivity {
 
 
 
+    @SuppressLint("NonConstantResourceId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,13 +57,10 @@ public class MainActivity extends AppCompatActivity {
                     fragment = new PostsFragment();
                     break;
                 case R.id.action_compose:
-                    Toast.makeText(MainActivity.this, "Compose!", Toast.LENGTH_SHORT).show();
                     ivCamera.setVisibility(View.GONE);
-
                     fragment = new ComposeFragment();
                     break;
                 case R.id.action_profile:
-                    Toast.makeText(MainActivity.this, "Profile!", Toast.LENGTH_SHORT).show();
                     ivCamera.setVisibility(View.VISIBLE);
                     fragment = new ProfileFragment();
                     break;
