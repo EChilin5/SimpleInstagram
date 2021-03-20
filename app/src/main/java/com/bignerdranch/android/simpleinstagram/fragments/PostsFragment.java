@@ -4,7 +4,6 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.arch.core.internal.FastSafeIterableMap;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -14,6 +13,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.bignerdranch.android.simpleinstagram.Post;
@@ -39,7 +39,9 @@ public class PostsFragment extends Fragment {
     private RecyclerView rvPost;
     protected PostAdapter adapter;
     protected List<Post> allPost;
+    private ImageView ivCamera;
     SwipeRefreshLayout swipeContainter;
+
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -94,22 +96,23 @@ public class PostsFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         rvPost = view.findViewById(R.id.rvPost);
 
-        allPost = new ArrayList<>();
-        adapter = new PostAdapter(getContext(), allPost);
+
         swipeContainter = view.findViewById(R.id.swipeContainer);
-        swipeContainter.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                Log.i(TAG, "fetching Data");
-                queryPost();
-            }
+        swipeContainter.setOnRefreshListener(() -> {
+            Log.i(TAG, "fetching Data");
+            queryPost();
         });
         swipeContainter.setColorSchemeResources(android.R.color.holo_blue_bright,
                 android.R.color.holo_green_light,
                 android.R.color.holo_orange_light,
                 android.R.color.holo_red_light);
+        allPost = new ArrayList<>();
+        adapter = new PostAdapter(getContext(), allPost);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
+        rvPost.setLayoutManager(layoutManager);
         rvPost.setAdapter(adapter);
-        rvPost.setLayoutManager(new LinearLayoutManager(getContext()));
+
+
         queryPost();
 
     }
@@ -121,23 +124,19 @@ public class PostsFragment extends Fragment {
         query.include(Post.KEY_USER);
         query.setLimit(20);
         query.addDescendingOrder(Post.KEY_CREATED_KEY);
-        query.findInBackground(new FindCallback<Post>() {
-            @Override
-
-            public void done(List<Post> posts, ParseException e) {
-                if(e != null){
-                    Log.e(TAG, "Issue with getting posts", e);
-                    return;
-                }
-                for(Post post: posts){
-                    Log.i(TAG, "Post: " + post.getDescription() + " USERNAME: " + post.getUser().getUsername());
-                }
-                Toast.makeText(getContext(), ParseUser.getCurrentUser().getUsername(), Toast.LENGTH_SHORT ).show();
-                adapter.clear();
-                adapter.addAll(posts);
-                swipeContainter.setRefreshing(false);
-
+        query.findInBackground((posts, e) -> {
+            if(e != null){
+                Log.e(TAG, "Issue with getting posts", e);
+                return;
             }
+            for(Post post: posts){
+                Log.i(TAG, "Post: " + post.getDescription() + " USERNAME: " + post.getUser().getUsername());
+            }
+            Toast.makeText(getContext(), ParseUser.getCurrentUser().getUsername(), Toast.LENGTH_SHORT ).show();
+            adapter.clear();
+            adapter.addAll(posts);
+            swipeContainter.setRefreshing(false);
+
         });
     }
 }

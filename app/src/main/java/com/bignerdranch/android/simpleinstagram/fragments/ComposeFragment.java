@@ -56,8 +56,7 @@ public class ComposeFragment extends Fragment {
     public static final int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 42;
     private EditText etDescription;
     private Button btnSubmit;
-    private Button btnCaptureImage;
-    private Button btnLogOut;
+    private ImageView ivCamera2;
     private ImageView ivPosterImage;
     private File photoFile;
     public String photoFileName = "photo.jpg";
@@ -103,49 +102,37 @@ public class ComposeFragment extends Fragment {
         etDescription = view.findViewById(R.id.etDescription);
         //tvUserName = findViewById(R.id.tvUserName);
         ivPosterImage = view.findViewById(R.id.ivPostImage);
-        btnCaptureImage = view.findViewById(R.id.btnCaptureImage);
+        ivCamera2 = view.findViewById(R.id.ivCamera2);
         btnSubmit = view.findViewById(R.id.btnSubmit);
         ivPosterImage = view.findViewById(R.id.ivPostImage);
-        btnLogOut = view.findViewById(R.id.btnLogOut);
+        etDescription.setVisibility(View.GONE);
+        btnSubmit.setVisibility(View.GONE);
 
-        btnCaptureImage.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                launchCamera();
-                //etDescription.setVisibility(View.VISIBLE);
-            }
+
+        ivCamera2.setOnClickListener(v -> {
+            launchCamera();
+            etDescription.setVisibility(View.VISIBLE);
+            btnSubmit.setVisibility(View.VISIBLE);
         });
 
         //    queryPost();
-        btnSubmit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String description = etDescription.getText().toString();
-                if(description.isEmpty()){
-                    Toast.makeText(getContext(), "Description cannot be empty", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-                if(photoFile == null || ivPosterImage.getDrawable() == null){
-                    Toast.makeText(getContext(), "There is no image", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-                ParseUser currentUser = ParseUser.getCurrentUser();
-                savePost(description, currentUser, photoFile);
-                Toast.makeText(getContext(), "Post has been created", Toast.LENGTH_SHORT).show();
-
+        btnSubmit.setOnClickListener(v -> {
+            String description = etDescription.getText().toString();
+            if(description.isEmpty()){
+                Toast.makeText(getContext(), "Description cannot be empty", Toast.LENGTH_SHORT).show();
+                return;
             }
+            if(photoFile == null || ivPosterImage.getDrawable() == null){
+                Toast.makeText(getContext(), "There is no image", Toast.LENGTH_SHORT).show();
+                return;
+            }
+            ParseUser currentUser = ParseUser.getCurrentUser();
+            savePost(description, currentUser, photoFile);
+            Toast.makeText(getContext(), "Post has been created", Toast.LENGTH_SHORT).show();
+
         });
 
-        btnLogOut.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ParseUser.logOut();
-                ParseUser currentUser = ParseUser.getCurrentUser(); // this will now be null
-                Intent i = new Intent(getContext(), activity_login.class);
-                startActivity(i);
-                //finish();
-            }
-        });
+
 
     }
     private void launchCamera() {
@@ -220,18 +207,16 @@ public class ComposeFragment extends Fragment {
         post.setDescription(description);
         post.setImage(new ParseFile(photoFile));
         post.setUser(currentUser);
-        post.saveInBackground(new SaveCallback() {
-            @Override
-            public void done(ParseException e) {
-                if( e != null){
-                    Log.e(TAG, "Error while saving", e);
-                    Toast.makeText(getContext(), "Error while saving", Toast.LENGTH_SHORT).show();
-                }
-                Log.i(TAG, "Post save was successful ");
-                etDescription.setText("");
-                ivPosterImage.setImageResource(0);
-                etDescription.setVisibility(View.GONE);
+        post.saveInBackground(e -> {
+            if( e != null){
+                Log.e(TAG, "Error while saving", e);
+                Toast.makeText(getContext(), "Error while saving", Toast.LENGTH_SHORT).show();
             }
+            Log.i(TAG, "Post save was successful ");
+            etDescription.setText("");
+            ivPosterImage.setImageResource(0);
+            etDescription.setVisibility(View.GONE);
+            btnSubmit.setVisibility(View.GONE);
         });
     }
 

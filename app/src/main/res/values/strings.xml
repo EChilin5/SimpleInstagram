@@ -14,5 +14,14 @@
     <string name="home_button">Home button</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="arrow_sample_image">Arrow Sample Image</string>
+    <string name="heart_same_image">Heart Same Image</string>
+    <string name="comment_image_sample">Comment Image Sample</string>
+    <string name="camera">camera</string>
+    <string name="profile">Profile</string>
+    <string name="home">Home</string>
+    <string name="compose">Compose</string>
+    <string name="sample_icon">Sample Icon</string>
+    <string name="bookmark">BookMark</string>
     ]
 </resources>
